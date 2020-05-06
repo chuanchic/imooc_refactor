@@ -1,0 +1,85 @@
+
+maven仓库划分：
+1.本地仓库
+2.远程仓库
+  1.中央仓库
+    1.mavenCenter
+    2.jCenter
+  2.私服            -> 局域网
+  3.其他公共库       -> 公网
+
+maven私服优点：
+1.节省公司的外网带宽
+2.加速构建过程
+3.部署第三方构件
+4.提高稳定性，增强控制
+5.降低中央仓库的负荷
+
+maven私服搭建：
+1. 下载安装 nexus
+2. 进入 nexus 下的 bin 目录，执行命令：
+   ./nexus start
+3. 浏览器访问：http://localhost:8081，就会打开maven私服首页
+4. 登录，用户名 admin 密码 admin123
+5. 点击左侧菜单 Browse 查看所有仓库，一般不用默认仓库，需要自己创建
+6. 在某个仓库上点击 URL 那一栏的 copy，就可以复制仓库地址
+7. 如何创建仓库？
+   1.点击顶部 设置 tab，点击左侧 Repositories，点击 Create repository
+   2.选择私服类型 maven2(hosted)
+   3.Name输入：imooc_release，Version policy 选择 Release 版本，点击 Create repository
+     Name输入：imooc_snapshot，Version policy 选择 Snapshot 版本，点击 Create repository
+
+将我们的项目上传到maven私服
+1.在项目根 build.gradle 里配置私服地址
+  buildscript -> repositories 下添加：(为gradle的构建添加仓库)
+  allprojects -> repositories 下添加：(为所有的工程添加仓库)
+      maven {
+          url 'http://localhost:8081/repository/imooc-releases/'
+          credentials {
+              username 'admin'
+              password 'admin123'
+          }
+      }
+      maven {
+          url 'http://localhost:8081/repository/imooc-snapshots/'
+          credentials {
+              username 'admin'
+              password 'admin123'
+          }
+      }
+2.在项目根 gradle.properties 里配置变量
+    # 项目地址
+    NEXUS_REPOSITORY_URL=http://localhost:8081/repository/imooc-snapshots/
+    # 组织名
+    POM_GROUPID=com.imooc.android
+    # Android类型的库都是aar，Java类型的库可以是jar
+    POM_PACKAGING=aar
+    # 用户名
+    NEXUS_USERNAME=admin
+    # 密码
+    NEXUS_PASSWORD=admin123
+3.在 lib_audio 项目下的 build.gradle 里配置maven插件，并编写脚本
+    apply plugin: 'maven'
+
+    def pomName = this.getName()
+    def pomVersionName = '1.0.0-SNAPSHOT'
+    def pomDescription = 'the audio library for all project'
+
+    //上传maven配置
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                repository(url: NEXUS_REPOSITORY_URL) {
+                    authentication(userName: NEXUS_USERNAME, password: NEXUS_PASSWORD)
+                }
+                pom.project {
+                    name pomName
+                    version pomVersionName
+                    description pomDescription
+                    artifactId pomVersionName
+                    groupId POM_GROUPID
+                    packaging POM_PACKAGING
+                }
+            }
+        }
+    }

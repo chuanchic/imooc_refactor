@@ -1,0 +1,9 @@
+
+1.在项目根目录下创建 imooc.gradle 文件
+    内容详见 imooc.gradle ...
+
+2.在项目根 build.gradle 里引入
+    apply from: this.rootProject.file('imooc.gradle')
+
+3.这样根工程就有 imooc.gradle 里定义的扩展属性
+  根据gradle的特性，子工程也能使用这些扩展属性

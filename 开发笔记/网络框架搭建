@@ -1,0 +1,11 @@
+
+在 lib_network 下的 build.gradle 里添加依赖
+    api rootProject.depsLibs.okhttp
+
+okhttp 的封装：
+    1. Request         -> CommonRequest
+    2. okhttpclient    -> CommonOkhttpClient
+    3. Response        -> CommonResponse      -> JsonResponse / FileResponse
+
+
+

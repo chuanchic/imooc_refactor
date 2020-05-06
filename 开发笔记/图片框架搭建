@@ -1,0 +1,9 @@
+
+1. 在 lib_image_loader 下的 build.gradle 里添加依赖
+    //glide相关依赖
+    implementation rootProject.depsLibs.glide
+    annotationProcessor rootProject.depsLibs.glidecompiler
+    //占位主工程rxjava
+    compileOnly rootProject.depsLibs.rxjava
+    compileOnly rootProject.depsLibs.rxandroid
+

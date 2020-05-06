@@ -1,0 +1,29 @@
+
+开发环境：
+1. AndroidStudio 3.4.1
+2. gradle 5.4.1
+
+项目划分：
+1. 宿主：    imooc_voice
+2. 业务组件：   首页业务    登录业务    搜索业务    音乐播放业务
+3. 基础业务组件：    lib_common_ui
+4. 功能组件：lib_network   lib_image_loader   lib_video   lib_audio
+            lib_update    lib_pullalive      lib_webview
+            lib_qrcode    lib_share
+
+项目搭建：
+1.创建一个空的工程
+2.创建宿主module：imooc_voice
+  New Module，选择 Phone & Tablet Module，选择 Add No Activity ...
+3.创建 lib_audio
+  New Module, 选择 Android Library ...
+4.创建 lib_video
+  New Module, 选择 Android Library ...
+5.依次创建 剩余 Module ...
+
+
+
+
+
+
+

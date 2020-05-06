@@ -1,0 +1,10 @@
+
+1. 布局规划
+    1. drawer_layout
+        login_layout  hor_function_layout  ver_funtion_layout
+    2. content_layout
+        title_layout  view_pager  bottom_view
+
+2. FragmentPagerAdapter
+    1. 由于首页的tab只有三个，所以用这个适配器就可以了
+    2. 列表选用 CHANNEL[] 类型，可以避免一次性创建多个Fragment，造成首页的卡顿

@@ -1,0 +1,13 @@
+
+1. 在 imooc_voice 下的 AndroidManifest 里指定主题
+    application 标签下 android:theme="@style/AppTheme"
+    对应 values 下的 styles.xml 和 values-v21 下的 styles.xml
+
+2. values 下的 styles.xml 不需要指定，values-v21 下的 styles.xml 需要指定
+    <item name="android:windowTranslucentStatus">false</item>
+    <item name="android:statusBarColor">@android:color/transparent</item>
+    <item name="android:navigationBarColor">@android:color/white</item>
+    <item name="android:fitsSystemWindows">true</item>
+
+3. 在 BaseActivity 里的 onCreate() 方法里统一调用
+    StatusBarUtil.statusBarLightMode(this);
